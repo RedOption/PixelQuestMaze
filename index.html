@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pixel Quest Maze</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pixel Quest Maze</title>
+<style>
     body {
       display: flex;
       flex-direction: column;
@@ -49,20 +50,44 @@
       font-size: 20px;
     }
   </style>
-</head>
+<style>
+  #container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    transform-origin: top center;
+  }
+  #maze {
+    overflow: visible !important;
+    max-height: none;
+    height: auto;
+  }
+  .controls {
+    margin-top: 20px;
+  }
+</style>
+<style>
+  html, body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+</style></head>
 <body>
-  <div id="game-title">Pixel Quest Maze</div>
-  <div id="game-info"><span id="timer">Time: 0s</span> | <span id="moves">Moves: 0</span></div>
-  <div id="maze"></div>
-  <div class="touch-controls">
-    <button onclick="movePlayer(0, -1)">⬆️</button>
-    <div></div>
-    <button onclick="movePlayer(0, 1)">⬇️</button>
-    <button onclick="movePlayer(-1, 0)">⬅️</button>
-    <div></div>
-    <button onclick="movePlayer(1, 0)">➡️</button>
-  </div>
-  <script>
+<div id="container">
+<div id="game-title">Pixel Quest Maze</div>
+<div id="game-info"><span id="timer">Time: 0s</span> | <span id="moves">Moves: 0</span></div>
+<div id="maze"></div>
+<div class="touch-controls">
+<button onclick="movePlayer(0, -1)">⬆️</button>
+<div></div>
+<button onclick="movePlayer(0, 1)">⬇️</button>
+<button onclick="movePlayer(-1, 0)">⬅️</button>
+<div></div>
+<button onclick="movePlayer(1, 0)">➡️</button>
+</div>
+<script>
     const mazeContainer = document.getElementById('maze');
     const timerDisplay = document.getElementById('timer');
     const movesDisplay = document.getElementById('moves');
@@ -142,5 +167,19 @@
 
     createMaze();
   </script>
+</div>
+<script>
+  function applyDynamicScale() {
+    const container = document.getElementById('container');
+    const bounds = container.getBoundingClientRect();
+    const scaleX = window.innerWidth * 0.95 / bounds.width;
+    const scaleY = (window.innerHeight - 20) / bounds.height;
+    const scale = Math.min(scaleX, scaleY, 1);
+    container.style.transform = 'scale(' + scale + ')';
+    container.style.transformOrigin = 'top center';
+  }
+  window.addEventListener('load', applyDynamicScale);
+  window.addEventListener('resize', applyDynamicScale);
+</script>
 </body>
 </html>
